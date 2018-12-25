@@ -14,3 +14,10 @@ https://vuejsexamples.com/shuffle-deck-of-cards-transitions-with-vue/
 
 
 https://www.youtube.com/watch?v=c-zZefXUHa4&list=PLLd6Lzq1_u-emTVzsgpLMTxK9W68Sdzxp&index=3
+
+#Using CLI Command Line
+>npm install --global vue-cli
+>vue init webpack myproject
+>cd myproject
+>npm install
+>npm run dev
