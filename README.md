@@ -11,6 +11,7 @@ https://www.vuemastery.com/courses/intro-to-vue-js/vue-instance/
 
 https://vuejsexamples.com/shuffle-deck-of-cards-transitions-with-vue/
 
+https://madewithvuejs.com/games           //game dev.
 
 
 https://www.youtube.com/watch?v=c-zZefXUHa4&list=PLLd6Lzq1_u-emTVzsgpLMTxK9W68Sdzxp&index=3
