@@ -2,6 +2,7 @@
 Basic exploration of Vue.js Front End framework.
 
 Links:
+
 https://www.tutorialspoint.com/vuejs/vuejs_quick_guide.htm
 
 https://ru.vuejs.org/v2/guide/index.html
