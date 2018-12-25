@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My vue.js</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+          crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        body {
+            padding: 20px 20px;
+        }
+        .active {
+            border: 1px solid;
+            background-color: #abdde5;
+        }
+
+        .static {
+            padding: 50px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+<div class="nav-bar">Nav</div>
+
+<h1 v-bind:class="{active: isActive ">My Vue.js</h1>
+<p><a href="https://www.youtube.com/watch?v=IYy5aQ0HTEw&list=PLSUAU8pldTeVWoUjehb68DsSEzbHo7yB0">
+    WebGirl Kristina Vue.js video
+</a></p>
+<p><a href="https://www.tutorialspoint.com/vuejs/vuejs_quick_guide.htm">
+    Tutorialspoint
+</a></p>
+<h2>Vue is reactive (The instance's data is linked to every place that data is being refferenced.
+    View updates on data chg. You can see this via console data changing. "app.product = 'New product'")</h2>
+<ol title="asdf???">
+    <li>classes/objects</li>
+    <li>options</li>
+    <li>Component class (= Vue.extend()), (Components are intended to be self-contained modules since we can group
+        markup (HTML),
+        logic (JS) and even styles (CSS) within them. )
+    </li>
+    <li>API: Vue class (Vue.extend({}), new Vue({ //options<el, data, >})</li>
+    <li>Directives: (v-html, v-bind:src, href, v-class, v-for, v-if, v-bind, v-model(2way binding), )</li>
+    <li>Expressions: {{ product + '?' }}, {{ fName + ' ' + lName }}, {{ clicked ? true : false }},
+        {{ message.split('').reverse().join('') }}</li>
+    <li>Modifiers: @clik, @mouse, @submit, @keyup.enter</li>
+</ol>
+<hr/>
+<div id="app">
+    <p v-bind:class="{active: isActive}">{{ hello }}</p>
+    <!-- the value assigned in the data object -->
+    <p>{{ hello.toUpperCase() }}</p>                           <!-- Using js expressions (only 1)-->
+    <p>{{ hello.split('').reverse().join('') }}</p>
+    <h1>{{ hello }}</h1>
+    <p v-html="htmlHello"></p>                                  <!-- html Template using directive -->
+    <a v-bind:href="url">Google</a>                             <!-- Attribute href for link -->
+    <button v-bind:disabled="bindDisabled">Go</button>
+
+    <h2>2 way-binding:</h2>
+    <input type="text" v-model="hello">
+    <span>{{ hello }}</span>
+    <br/>
+    <h3>Firstname: {{ fname }}</h3>
+    <h3>Lastname: {{ lname }}</h3>
+    <h3>{{ mydetails() }}</h3>
+    <h3>{{ fullName }}</h3>
+    <img v-bind:src="imgsrc" width="300" height="250"/>         <!-- v-bind - dyn. adds attr to an expression -->
+
+    <hr />
+    <p><a href="https://www.vuemastery.com/courses/intro-to-vue-js/vue-instance/">Vue Mastery Socks</a></p>
+    <h2>Products in stock(using array):</h2>
+    <ul>
+        <li v-for="product in products">
+            <!--<input type="number" v-model.number="product.quantity">-->
+                {{ product }}
+
+        </li>
+    </ul>
+
+    <hr />
+    <h2>Products2 in stock(using api): //not working, so:</h2>
+    <h2>Products2 in stock(using array of objects):</h2>
+    <ul>
+        <li v-for="product2 in products2">
+            {{ product2.quantity }} {{ product2.name}}
+            <input type="number" v-model.number="product2.quantity">
+                {{ product2.name }}
+            <span v-if="product2.quantity === 0">
+                - OUT OF STOCK
+            </span>
+            <button @click="product2.quantity += 1">
+                Add
+            </button>
+        </li>
+    </ul>
+    <h2>Total Inventory: {{ totalProducts }}</h2>
+
+    <hr />
+    <h2>Products3 in stock(vuemastery.com intro):</h2>
+    <div class="product">
+        <div class="product-image">
+            <img v-bind:src="imgsrc" width="300" height="250"/>
+        </div>
+
+        <div class="product-info">
+            <h2>{{ product }}</h2>
+            <p v-if="inStock && inventory > 10">In stock</p>
+            <p v-else-if="inventory <= 10 && inventory >= 0">Almost sold out!</p>
+            <p v-else>Out Of Stock</p>
+            <p v-show="isActive"><b>Active</b></p>
+
+            <ul>
+                <li v-for="detail in details">{{ detail }}</li>
+            </ul>
+
+            <div v-for="variant in variants" :key="variant.variantId">
+                <p @mouseover="updateProduct(variant.variantImage)">{{ variant.variantColor }}</p>
+            </div>
+
+            <div v-for="size in sizes" >
+                <span>{{ size }}, </span>
+            </div>
+
+            <!--<button v-on:click="cart += 1">Add to Cart</button>-->
+            <button v-on:click="addToCart">Add to Cart</button>
+            <div class="cart">
+                <p>Cart ({{ cart }})</p>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+    <!-- *************************************** -->
+    <p><a href="https://www.youtube.com/watch?v=Q090HwqqsRI&index=2&list=PLLd6Lzq1_u-emTVzsgpLMTxK9W68Sdzxp">Vue.js 2 Урок 2 Мини-версия списка дел</a></p>
+    <h2>To-Do List</h2>
+<!--    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3 v-once>{{ title }}</h3>
+            </div>
+        </div>
+    </div>-->
+
+    <!--    <hr />-->
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <span>Название дела: </span>
+                <input type="text" v-model="itemTitle">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <span>Описание дела:</span>
+                <input type="text" v-model="itemDesc">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <input type="submit" value="Добавить дело" v-on:click.prevent="addItem">
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="card" v-for="item in items">
+                <div class="card-block">
+                    <h3>{{ item.title }}</h3>
+                    <p>{{ item.desc }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- *************************************** -->
+
+    <hr />
+    <p>$ vue init webpack my-project  //CLI to start real projects quickly (/build, /config, /node_modules, /src, /static, /test)</p>
+</div>
+
+<script>
+    //#Krist,TP1 Object 1 (class)
+    var app = new Vue(                      //the instance of Vue, which is called the root Vue Instance
+        {
+            el: '#app',                     //calling Vue instance, which takes the id of the DOM element
+
+            //options to be passed to the Vue
+            data: {                         // defined the data object. This type of data can be an object or a function.
+                // Vue converts its properties to getters/setters to make it reactive.
+                hello: 'Всем привет!',
+                htmlHello: '<h2>Hello!</h2>',
+                url: 'http://google.com',
+                btnDisabled: true,
+
+                fname: "Sergei",
+                lname: "Akimov",
+                address: "UK",
+                imgsrc: "images/7c1c17745ab6.png",
+
+                isActive: true,
+
+                products: [                 //for Vue Mastery Socks   //* Search to array of objects!
+                    'Boots',
+                    'Shirts',
+                    'Hats'
+                ],
+                /*products2: [],*/
+                products2: [
+                    { name: 'Boots2', quantity: 23 },
+                    { name: 'Shirts2', quantity: 23 },
+                    { name: 'Hats2', quantity: 23 },
+                    { name: 'Socks2', quantity: 23 }
+                ],
+
+                //image: './images/7c1c17745ab6.png',
+                inStock: true,
+                inventory: 1,
+                details: ["80% cotton", "20% polyester", "Gender-neutral"],
+                variants: [
+                    {
+                        variantId: 2234,
+                        variantColor: "green",
+                        variantImage: 'images/7c1c17745ab6.png'
+                    },
+                    {
+                        variantId: 2235,
+                        variantColor: "blue",
+                        variantImage: 'images/a10.jpg'
+                    }
+                ],
+                sizes: [
+                    43, 44, 45, 46
+                ],
+                cart: 0,
+
+                //?? ? method?
+                created() {                 //getting products from an actual API (DB)
+                    fetch('https://api/myjson.com/bins/74l63')
+                        .then(response => response.json())
+                        .then(json => {
+                            this.products2 = json.products
+                        })
+                },
+
+                //for To-Do List
+                title: 'Список дел',
+                items: [
+                    /*
+                    {title: 'Сверстать список дел.', desc: 'Сверстать список дел с помощью Vue.js'},
+                    {title: 'Поработать с GitHub', desc: 'Запушить проект по Vue.js на GitHub!'}
+                    */
+                ],
+                itemTitle: '',
+                itemDesc: ''
+            },
+            methods: {
+                mydetails: function () {
+                    return "I am " + this.fname + " " + this.lname + " //message from method.";
+
+                },
+                addToCart: function() {
+                    this.cart += 1;
+                },
+                updateProduct: function(variantImage) {
+                    this.image = variantImage;
+                },
+
+                //for To-Do List
+                addItem: function () {              //on input click
+                    if(this.itemTitle !== '' && this.itemDesc !== '') {
+                        const item = {};                //(переменной?) присвиваем объект
+                        item.title = this.itemTitle;
+                        item.desc = this.itemDesc;
+                        this.items.push(item);          //добавляем созданный объект в массив items
+                        this.itemTitle = '';            //очистка полей
+                        this.itemDesc = '';
+                    }
+                }
+
+            },
+            computed: {
+                fullName: {
+                    get: function () {
+                        return 'Computed: ' + this.fname + ' ' + this.lname + ', address: ' + this.address;
+                    },
+                    set: function (name) {                  //to change app (class) state
+                        this.fname = name.split(' ')[0];
+                        this.lname = name.split(' ')[1];
+                    }
+                },
+                totalProducts() {
+                    return this.products2.reduce((sum, product) => {
+                        return sum + product.quantity
+                    }, 0)
+                }
+            }
+        }
+    );
+
+    //#TP2    look how data is passed in th options
+    var _obj = {fname: "FName", lname: "LName"}
+    //direct instance creation
+    var vm = new Vue({
+        data: _obj
+    });
+    console.log(vm.fname);
+    console.log(vm.$data);
+    console.log(vm.$data.lname);
+
+    //must use function when in Vue.extend()
+    //(If there is a component, the data object has to be referred from a function)
+    var Component = Vue.extend({
+        //options
+        data: function () {
+            return _obj
+        },
+        props: ['msg_props'],                //array type of string/object to be attrs used to accept data from parent component
+        template: '<div>{{ msg }}</div>'
+    });
+    var myComponentInstance = new Component();  //To refer to the data from the component, we need to create an instance of it.
+    console.log(myComponentInstance.lname);
+    console.log(myComponentInstance.$data);
+
+    var myComponentInstanceWithProps = new Component({
+        propsData: {                            //used for unit testing
+            msg: 'Hello from props'
+        }
+    })
+
+</script>
+
+</body>
+</html>
